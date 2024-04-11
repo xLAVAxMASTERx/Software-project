@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!-- Set encoding and viewport parameters for mobile devices -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Page title -->
+    <title>Document</title>
+
+    <!-- Link to styles for icons from Unicons library -->
+    <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css" />
+
+    <!-- Link to local styles from worker.css file -->
+    <link rel="stylesheet" href="styles/worker.css">
+</head>
+
+<body>
+    <!-- Container for the page content -->
+    <div class="container">
+
+        <!-- Navigation menu -->
+        <nav class="nav">
+            <ul class="nav-items">
+                <!-- Menu item: open modal window with user information -->
+                <li class="nav-item">
+                    <div id="open-modal-btn"><span class="white-text">My Profile</span></div>
+                </li>
+
+                <!-- Menu item: log out -->
+                <li class="nav-item">
+                    <a href="#" onclick="redirectToSignIn()">Sign Out</a>
+                </li>
+            </ul>
+        </nav>
+
+        <!-- Welcome title with the user's name and the word "tasks" -->
+        <div class="welcome-title">
+            <h1 th:text="${user.getFirstName() + ' tasks'}">Employee's tasks</h1>
+        </div>
+
+        <!-- Central part of the page with the task card -->
+        <div class="todo-card-center">
+            <!-- Task card -->
+            <div class="todo-card">
+
+                <!-- Card title: "To Do" -->
+                <h1>To Do</h1>
+
+                <!-- Input field for a new task -->
+                <div class="input-field">
+                    <textarea placeholder="Enter your new todo"></textarea>
+                </div>
+
+                <!-- Task filtering panel -->
+                <div class="filter-options">
+                    <button onclick="filterTasks('all')">All Tasks</button>
+                    <button onclick="filterTasks('completed')">Completed Tasks</button>
+                    <button onclick="filterTasks('uncompleted')">Uncompleted Tasks</button>
+                </div>
+
+                <!-- List of tasks -->
+                <ul class="todoLists">
+                    <!-- Iterate through tasks and display their content -->
+                    <li th:each="task : ${tasks}" th:text="${task.getTaskContent()}"></li>
+                </ul>
+
+                <!-- Information about pending tasks -->
+                <div class="pending-tasks">
+                    <span>You have <span class="pending-num"> no </span> tasks pending.</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Link to the JavaScript script from worker.js file -->
+    <script src="scripts/worker.js"></script>
+</body>
+
+</html>

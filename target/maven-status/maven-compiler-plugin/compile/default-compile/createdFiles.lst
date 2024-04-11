@@ -1,0 +1,9 @@
+com\example\SpringBootWebApp\Models\User.class
+com\example\SpringBootWebApp\DAO\DatabaseManager.class
+com\example\SpringBootWebApp\Models\Task.class
+com\example\SpringBootWebApp\SpringBootWebAppApplication.class
+com\example\SpringBootWebApp\Controller\LoginController.class
+com\example\SpringBootWebApp\Controller\RegistrationController.class
+com\example\SpringBootWebApp\DAO\TaskDAO.class
+com\example\SpringBootWebApp\DAO\UserDAO.class
+com\example\SpringBootWebApp\Controller\UserController.class
