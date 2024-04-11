@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!-- Meta tags for character set and viewport settings -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <!-- Link to Unicons icon library styles -->
+    <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css"/>
+    
+    <!-- Link to local styles from the director.css file -->
+    <link rel="stylesheet" href="styles/director.css">
+</head>
+
+<body>
+    <div class="container">
+
+        <!-- Navigation panel -->
+        <nav class="nav">
+            <ul class="nav-items">
+                <!-- Button to open the "My Information" modal -->
+                <li class="nav-item">
+                    <div id="open-modal-btn"><span class="white-text">My Profile</span></div>
+                </li>
+                <!-- "Sign Out" link -->
+                <li class="nav-item">
+                    <a href="#" onclick="redirectToSignIn()">Sign Out</a>
+                </li>
+            </ul>
+        </nav>
+
+        <!-- Modal window -->
+        <div class="modal" id="my-modal">
+            <div class="modal__box">
+                <!-- Close button with an icon -->
+                <button class="modal__close-btn" id="close-my-modal-btn">
+                    <svg width="23" height="25" viewBox="0 0 23 25" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M2.09082 0.03125L22.9999 22.0294L20.909 24.2292L-8.73579e-05 2.23106L2.09082 0.03125Z"
+                            fill="#333333" />
+                        <path d="M0 22.0295L20.9091 0.0314368L23 2.23125L2.09091 24.2294L0 22.0295Z" fill="#333333" />
+                    </svg>
+                </button>
+                <!-- User information in the modal -->
+                <div class="modal-info">
+                    <!-- User image -->
+                    <div class="modal-img">
+                        <img src="https://i0.wp.com/www.repol.copl.ulaval.ca/wp-content/uploads/2019/01/default-user-icon.jpg?ssl=1" alt="">
+                    </div>
+                    <!-- User data -->
+                    <div class="modal-personInfo">
+                        <!-- User's first name -->
+                        <div class="modal-info-input">
+                            <p th:text="${user.getFirstName()}"><span style="font-weight: 600;">Name: </span><span class="text">Qwerty Qwerty</span></p>
+                            <button class="edit">&#9998;</button>
+                        </div>
+                        <!-- User's last name -->
+                        <div class="modal-info-input">
+                            <p th:text="${user.getLastName()}"><span style="font-weight: 600;">Name: </span><span class="text">Qwerty Qwerty</span></p>
+                            <button class="edit">&#9998;</button>
+                        </div>
+                        <!-- User's email -->
+                        <div class="modal-info-input">
+                            <p th:text="${user.getEmail()}"><span style="font-weight: 600;">Email: </span> <span class="text">qwerty@gmail.com</span></p>
+                            <button class="edit">&#9998;</button>
+                        </div>
+                        <!-- User's phone number -->
+                        <div class="modal-info-input">
+                            <p th:text="${user.getPhoneNumber()}"><span style="font-weight: 600;">Number: </span><span class="text">+996 XXX XXX XXX</span></p>
+                            <button class="edit">&#9998;</button>
+                        </div>
+                        <!-- User's status -->
+                        <p th:text="${user.getStatus()}"><span style="font-weight: 600;">Status: </span> Director</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- User welcome title -->
+        <div class="welcome-title">
+            <h1 th:text="${'Welcome back, ' + user.getFirstName()}">Welcome back, Director!</h1>
+        </div>
+
+        <!-- Task cards -->
+        <div class="todo-card-center">
+            <!-- "List of Workers" card -->
+            <div class="todo-card">
+                <h1>List of Employees</h1>
+                <!-- Workers list -->
+                <li th:each="worker : ${workers}" class="open-todo-btn">
+                    <!-- Link to the worker's task page -->
+                    <a th:href="@{'/assign-task/' + ${worker.getId()}}" th:text="${worker.getFirstName() + ' ' + worker.getLastName()}">User</a>
+                </li>
+            </div>
+            
+            <!-- "List of Managers" card -->
+            <div class="todo-card">
+                <h1>List of Managers</h1>
+                <!-- Managers list -->
+                <li th:each="manager : ${managers}" class="open-todo-btn">
+                    <!-- Link to the manager's task page -->
+                    <a th:href="@{'/assign-task/' + ${manager.getId()}}" th:text="${manager.getFirstName() + ' ' + manager.getLastName()}">User</a>
+                </li>
+            </div>
+
+            <!-- "To Do" card -->
+            <div class="todo-card">
+                <h1>To Do</h1>
+                <!-- Form to add a new task -->
+                <div id="taskInput">
+                    <input type="text" id="newTaskText" placeholder="Enter task...">
+                    <button id="addTaskButton" onclick="addTask()">Add Task</button>
+                </div>
+                <!-- Task filter buttons -->
+                <div class="filter-options">
+                    <button onclick="filterTasks('all')">All Tasks</button>
+                    <button onclick="filterTasks('completed')">Completed Tasks</button>
+                    <button onclick="filterTasks('uncompleted')">Uncompleted Tasks</button>
+                </div>
+                <!-- Task list -->
+                <ul id="taskList">
+                    <!-- Loading indicator -->
+                    <div class ="loadingIndicator" style="display: none;">
+                        <!--                        Loading...-->
+                        <img src="infinity.gif" alt="Loading...">
+                    </div>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!-- Script inclusion for client-side logic -->
+    <script src="scripts/script.js"></script>
+</body>
+
+</html>
